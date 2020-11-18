@@ -15,7 +15,6 @@ filegroup(
 java_toolchain(
     name = "jdk8",
     bootclasspath = ["@bazel_tools//tools/jdk:bootclasspath"],
-    extclasspath = ["@bazel_tools//tools/jdk:extdir"],
     genclass = ["@bazel_tools//tools/jdk:GenClass_deploy.jar"],
     header_compiler = ["@bazel_tools//tools/jdk:turbine_deploy.jar"],
     ijar = ["@bazel_tools//tools/jdk:ijar"],
