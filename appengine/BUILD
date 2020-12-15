@@ -1,4 +1,6 @@
 # A target to ensure the servlet-api is not linked in the webapp.
+load("@bazel_tools//tools/jdk:default_java_toolchain.bzl", "JDK8_JVM_OPTS", "JVM8_TOOLCHAIN_CONFIGURATION", "default_java_toolchain")
+
 java_library(
     name = "javax.servlet.api",
     neverlink = 1,
@@ -12,20 +14,13 @@ filegroup(
     visibility = ["//tools:__pkg__"],
 )
 
-java_toolchain(
+default_java_toolchain(
     name = "jdk8",
-    bootclasspath = ["@bazel_tools//tools/jdk:bootclasspath"],
-    genclass = ["@bazel_tools//tools/jdk:GenClass_deploy.jar"],
-    header_compiler = ["@bazel_tools//tools/jdk:turbine_deploy.jar"],
-    ijar = ["@bazel_tools//tools/jdk:ijar"],
-    javabuilder = ["@bazel_tools//tools/jdk:JavaBuilder_deploy.jar"],
-    tools = ["@bazel_tools//third_party/java/jdk/langtools:javac_jar"],
-    javac_supports_workers = 1,
-    jvm_opts = [
+    configuration = JVM8_TOOLCHAIN_CONFIGURATION,
+    jvm_opts = JDK8_JVM_OPTS + [
         "-XX:+TieredCompilation",
         "-XX:TieredStopAtLevel=1",
     ],
-    singlejar = ["@bazel_tools//tools/jdk:singlejar"],
     source_version = "8",
     target_version = "8",
     visibility = ["//visibility:public"],
